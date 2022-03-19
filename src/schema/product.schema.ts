@@ -2,7 +2,7 @@ import { getModelForClass, index, prop, Ref } from "@typegoose/typegoose";
 import { Field, InputType, ObjectType } from "type-graphql";
 import { customAlphabet } from "nanoid";
 import { User } from "./user.schema";
-import { IsNumber, MaxLength, Min, MinLength } from "class-validator";
+const { IsNumber, MaxLength, Min, MinLength } = require("class-validator");
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz123456789", 10);
 

@@ -7,8 +7,8 @@ import {
   index,
 } from "@typegoose/typegoose";
 import { AsQueryMethod } from "@typegoose/typegoose/lib/types";
-import bcrypt from "bcrypt";
-import { IsEmail, MaxLength, MinLength } from "class-validator";
+const bcrypt = require("bcryptjs");
+const { IsEmail, MaxLength, MinLength } = require("class-validator");
 import { Field, InputType, ObjectType } from "type-graphql";
 
 function findByEmail(
