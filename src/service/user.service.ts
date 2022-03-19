@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-errors";
-import bcrypt from "bcrypt";
+const bcrypt = require("bcryptjs");
 import { CreateUserInput, LoginInput, UserModel } from "../schema/user.schema";
 import Context from "../types/context";
 import { signJwt } from "../utils/jwt";
