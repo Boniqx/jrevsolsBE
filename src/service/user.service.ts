@@ -1,12 +1,32 @@
 import { ApolloError } from "apollo-server-errors";
-const bcrypt = require("bcryptjs");
-import { CreateUserInput, LoginInput, UserModel } from "../schema/user.schema";
+import bcrypt from "bcrypt";
+import {
+  CreateUserInput,
+  LoginInput,
+  User,
+  UserModel,
+} from "../schema/user.schema";
+import { CreateBasicInformationInput } from "../schema/user.schema/user.schema";
 import Context from "../types/context";
 import { signJwt } from "../utils/jwt";
 
 class UserService {
   async createUser(input: CreateUserInput) {
     return UserModel.create(input);
+  }
+
+  async createBasicInformation(
+    input: CreateBasicInformationInput,
+    userId: User["_id"]
+  ) {
+    const _id = userId;
+    return UserModel.findByIdAndUpdate(
+      _id,
+      {
+        employee: input,
+      },
+      { new: true }
+    );
   }
 
   async login(input: LoginInput, context: Context) {
@@ -41,6 +61,13 @@ class UserService {
 
     // return the jwt
     return token;
+  }
+
+  async findUsers() {
+    // Pagination login
+    const users = await UserModel.find().lean();
+
+    return users;
   }
 }
 

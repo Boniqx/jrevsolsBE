@@ -34,11 +34,18 @@ async function bootstrap() {
     schema,
     context: (ctx: Context) => {
       const context = ctx;
+      const token = ctx.req.headers.authorization || "";
 
       if (ctx.req.cookies.accessToken) {
         const user = verifyJwt<User>(ctx.req.cookies.accessToken);
         context.user = user;
       }
+
+      if (token) {
+        const user = verifyJwt<User>(token);
+        context.user = user;
+      }
+
       return context;
     },
     plugins: [
